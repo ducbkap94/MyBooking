@@ -1,0 +1,184 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@{
+    ViewData["Title"] = "Brand List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+
+}
+@model PagedResult<MyWeb.Data.Models.Brand>
+
+<div class="row mb-5">
+    <div class="col-5 d-flex justify-content-end gap-2">
+        <form id="searchForm" class="row mb-3">
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="searchName" name="searchName"
+                    placeholder="Nhập tên cần tìm...">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-7 d-flex justify-content-end">
+        <div class="row g-2">
+            <div class="col-md-3 center">
+                <!-- Nút mở Modal -->
+                <button type="submit" class="btn btn-primary" onclick="openBrandForm(0)">
+                    Thêm mới
+                </button>
+            </div>
+            <div class="col-md-3 center">
+                <!-- Nút Tải lại -->
+                <button type="submit" class="btn btn-outline-secondary" onclick="loadPage(1, 10)">
+                    Tải lại
+                </button>
+            </div>
+            <div class="col-md-3 center">
+                <!-- Nút Xuất Excel -->
+                <button type="submit" class="btn btn-success">
+                    Xuất Excel
+                </button>
+            </div>
+            <div class="col-md-3 center">
+                <button type="submit" class="btn btn-danger" onclick="deleteSelected()">
+                Xoá</button>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hãng Sản Xuất</h4>
+                <div class="table-responsive dataTables_wrapper" id="table-container">
+                    @await Html.PartialAsync("Partials/_tablePartial", Model);
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="brandModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="margin-top: 120px;">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin hãng sản xuất</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="brandModalBody">
+                <!-- Nội dung form sẽ load vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function loadPage(page, pageSize) {
+            $.ajax({
+                url: '/Admin/Brand/LoadTable/',
+                type: 'GET',
+                data: { page: page, pageSize: pageSize },
+                success: function (result) {
+                    $("#table-container").html(result);
+                }
+            });
+        }
+        function openBrandForm(id) {
+            $.get('@Url.Action("Form")', { id: id }, function (res) {
+                console.log(res);
+                $("#brandModalBody").html(res);
+                $("#brandModal").modal('show');
+            });
+        }
+        function deleteBrand(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa thương hiệu này không?")) {
+                $.ajax({
+                    url: '/Admin/Brand/Delete/' + id, // hoặc dùng data: { id: id } nếu action là [HttpPost]
+                    type: 'GET', // hoặc 'DELETE' nếu bạn cấu hình route theo RESTful
+
+                    success: function (res) {
+                        if (res.success) {
+                            alert(res.message);
+                            location.reload(); // reload lại trang
+                        }
+                        else {
+                            alert(res.message || "Có lỗi xảy ra khi xóa thương hiệu!");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Có lỗi xảy ra: " + error);
+                    }
+                });
+            }
+        }
+        // xử lý submit
+        $(document).on("submit", "#brandForm", function (e) {
+            e.preventDefault(); // chặn reload trang
+            var brand = {
+                Id: $("#Id").val() == "" ? 0 : $("#Id").val(), // lấy giá trị Id từ input ẩn
+                Name: $("#Name").val(),
+                Description: $("#Description").val(),
+            }
+
+            $.ajax({
+                url: '@Url.Action("Save", "Brand")', // URL của action Create
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(brand), // lấy toàn bộ dữ liệu form
+                success: function (res) {
+                    console.log(res);
+                    if (res.success) {
+                        $("#brandModal").modal('hide'); // đóng modal
+                        alert(res.message || "Lưu thành công!");
+                        location.reload(); // reload lại bảng hoặc bạn có thể update bằng ajax
+                    } else {
+                        alert(res.message || "Có lỗi xảy ra!");
+                    }
+                },
+                error: function () {
+                    alert("Lỗi khi gửi dữ liệu!");
+                }
+            });
+
+        });
+        function deleteSelected() {
+            // Lấy tất cả checkbox được chọn
+            var ids = $('.rowCheckbox:checked').map(function () {
+                return $(this).data('id');
+            }).get();
+            if (ids.length === 0) {
+                alert("Vui lòng chọn ít nhất một bản ghi!");
+                return;
+            } // In ra mảng ID đã chọn
+            if (confirm("Bạn có chắc chắn muốn xóa các thương hiệu đã chọn không?")) {
+                // Gửi AJAX POST
+                $.ajax({
+                    url: '/Admin/Brand/DeleteSelected', // URL API server
+                    type: 'POST',
+                    traditional: true,
+                    data: { request: ids }, // để gửi mảng đúng cách 
+                    success: function (response) {
+                        if (response.success) {
+                            // Xóa các dòng trên client
+                            loadPage(1, 10); // reload lại trang hoặc bảng
+                            alert(response.message || "Xóa thành công!");
+                        } else {
+                            alert("Xóa thất bại: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("Có lỗi xảy ra!" + error);
+                    }
+                });
+            }
+
+        }
+    </script>
+}

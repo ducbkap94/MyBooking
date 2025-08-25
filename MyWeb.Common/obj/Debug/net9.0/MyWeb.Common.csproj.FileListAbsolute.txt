@@ -1,0 +1,41 @@
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.deps.json
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/bin/Debug/net9.0/MyWeb.Data.dll
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/bin/Debug/net9.0/MyWeb.Data.pdb
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.AssemblyReference.cache
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfoInputs.cache
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfo.cs
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Co.F3FF9AB8.Up2Date
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/refint/MyWeb.Common.dll
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/MyWeb/MyWeb.Common/obj/Debug/net9.0/ref/MyWeb.Common.dll
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.deps.json
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/bin/Debug/net9.0/MyWeb.Data.dll
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/bin/Debug/net9.0/MyWeb.Data.pdb
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.AssemblyReference.cache
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfoInputs.cache
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfo.cs
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Co.F3FF9AB8.Up2Date
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/refint/MyWeb.Common.dll
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/Dự án cho thuê/MyWeb.Common/obj/Debug/net9.0/ref/MyWeb.Common.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.deps.json
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/bin/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfoInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfo.cs
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/refint/MyWeb.Common.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/ref/MyWeb.Common.dll
