@@ -45,7 +45,9 @@ namespace MyWeb.Data.Repositories
                         AssetId = detail.AssetId,
                         PricePerUnit = price,
                         CreatedAt = DateTime.Now,
-                        TotalAmount = detail.Days * price,
+                        TotalAmount = detail.Days * price * (1 - detail.Discount / 100),
+                        Days = detail.Days,
+                        Discount = detail.Discount,
                         RateType = detail.RateType,
 
                     };
@@ -129,7 +131,7 @@ namespace MyWeb.Data.Repositories
                         Days = detail.Days,
                         Discount = detail.Discount,
                         PricePerUnit = price,
-                        TotalAmount = detail.SubTotal,
+                        TotalAmount = detail.Days * price * (1 - detail.Discount / 100),
                         RateType = detail.RateType,
                         CreatedAt = DateTime.Now
                     };
