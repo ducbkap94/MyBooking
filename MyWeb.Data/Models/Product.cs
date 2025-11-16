@@ -11,38 +11,25 @@ namespace MyWeb.Data.Models
 
         [Required, ForeignKey("Category")]
         public int CategoryId { get; set; }
-        public Category? Category { get; set; }
 
         [Required, MaxLength(150)]
         public string? Name { get; set; }
 
-        public string? Description { get; set; }
+        public string? Specification { get; set; }
 
-        public decimal PricePerDay { get; set; }
-        public decimal PricePerHour { get; set; }
-
-        [MaxLength(50)]
-        public string? Status { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        public ICollection<ProductImage>? ProductImages { get; set; }
-        public Inventory? Inventory { get; set; }
-        public ICollection<Maintenance>? Maintenances { get; set; }
-
-
         // Quan hệ 1-n: Brand - Product
         [ForeignKey("Brand")]
         public int? BrandId { get; set; }
+
+        public ICollection<Asset> Assets { get; set; } = new List<Asset>();
+        public ICollection<RentalRate> RentalRates { get; set; } = new List<RentalRate>();
+
+        public Category? Category { get; set; }
         public Brand? Brand { get; set; }
-        // Quan hệ 1-n: Product - CashBook
-        public ICollection<CashBook>? CashBooks { get; set; }
+    
 
-        // Quan hệ 1-n: Product - BookingDetail
-        public ICollection<BookingDetail>? BookingDetails { get; set; }
-
-        // Quan hệ 1-n: Product - Payment
-        public ICollection<Payment>? Payments { get; set; }
 
     }
 }

@@ -35,6 +35,7 @@
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfoInputs.cache
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.AssemblyInfo.cs
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.sourcelink.json
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/refint/MyWeb.Common.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Common/obj/Debug/net9.0/MyWeb.Common.pdb

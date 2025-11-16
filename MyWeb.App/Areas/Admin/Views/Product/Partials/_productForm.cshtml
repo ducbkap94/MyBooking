@@ -1,0 +1,81 @@
+@model MyWeb.Business.Dtos.Product.Response.ProductFormResponse
+
+<!-- Modal -->
+
+                <form id="productForm" method="post">
+                <div class="form-group">
++                        @Html.AntiForgeryToken()
+                        <label>Nhóm sản phẩm</label>
+                        <select id="CategoryId" name="CategoryId" class="form-control">
+                            <option value="">--- Chọn nhóm sản phẩm ---</option>
+                            @foreach (var cat in Model.Categories)
+                            {
+                                <option value="@cat.Id" @(cat.Id == Model.Product?.CategoryId ? "selected" : "")>@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" id="Name" name="Name" value="@Model.Product?.Name" class="form-control" />
+                        <input type="hidden"  name="Id" id="Id" value="@Model.Product?.Id" />
+                    </div>
+                    <div class="form-group">
+                        <label>Hãng sản xuất</label>
+                        <select id="BrandId" name="BrandId" class="form-control">
+                            <option value="">--- Chọn hãng sản xuất ---</option>
+                            @foreach (var brand in Model.Brands)
+                            {
+                                <option value="@brand.Id" @(brand.Id == Model.Product?.BrandId ? "selected" : "")>@brand.Name</option>
+                            }
+                        </select>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Thuộc tính</label>
+                        <textarea  id="Specification"row="5"  name="Specification" value="@Model.Product?.Specification" class="note-codable form-control"></textarea>
+                    
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+
+<script>
+
+    const validation = new JustValidate('#productForm');
+
+    validation
+
+        .addField('#CategoryId', [
+            { rule: 'required', errorMessage: 'Vui lòng chọn nhóm sản phẩm' },
+        ])
+        .addField('[name="Name"]',[
+            { rule: 'required', errorMessage: 'Vui nhập tên sản phẩm' },
+        ])
+        .addField('#BrandId',[
+            { rule: 'required', errorMessage: 'Vui lòng chọn thương hiệu' }
+        ])
+    
+        .onSuccess((event) => {
+            event.preventDefault();
+            const form = document.querySelector('#productForm');
+            const formData = new FormData(form);
+
+            fetch('/Admin/Product/Save', {
+                method: 'POST',
+                body: formData
+            }) .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    location.reload();
+                })              
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert(data.message);
+                });
+        });
+</script>

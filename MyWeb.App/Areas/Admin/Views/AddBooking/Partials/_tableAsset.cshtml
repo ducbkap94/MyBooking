@@ -1,0 +1,32 @@
+@using MyWeb.Common.Helpers
+@model List<MyWeb.Business.Dtos.Asset.Response.AssetSelectResponse>
+<!-- Bảng danh sách thiết bị -->
+   <table class="table table-bordered table-hover align-middle" id="tblDeviceResult">
+        <thead class="table-light">
+          <tr>
+            <th>Tên thiết bị</th>
+            <th>Serial Number</th>
+            <th>Đơn giá/ngày</th>
+            <th>Đơn giá/giờ</th>
+            <th>Tình trạng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+        @if (Model != null && Model.Count > 0)
+        {
+          @foreach (var item in Model)
+          {
+            <tr>
+            <td>@item?.ProductName</td>
+            <td>@item?.SerialNumber</td>
+            <td>@CurrencyHelper.FormatVND(@item.PricePerDay==null?0: @item.PricePerDay)</td>
+            <td>@CurrencyHelper.FormatVND(@item.PricePerHour)</td>
+            <td>Sẵn sàng</td>
+            <td><button class="btn btn-sm btn-success btnAddDevice" data-id="@item?.Id" data-name="@item?.ProductName" data-seri="@item?.SerialNumber" data-price="@item?.PricePerDay" data-hour="@item?.PricePerHour">➕ Thêm</button></td>
+          </tr>
+            
+        }}
+        </tbody>
+      </table>

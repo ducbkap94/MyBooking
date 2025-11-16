@@ -1,0 +1,74 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@using MyWeb.Common.Helpers
+@model PagedResult<MyWeb.Business.Dtos.RentalRate.Response.RentalRateTableResponse>
+
+<table class="table header-border" id="AssetTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>STT</th>
+            <th>Loại thiết bị</th>
+            <th>Giá thuê theo ngày</th>
+            <th>Giá thuê theo giờ</th>
+            <th>Ngày áp dụng</th>
+            <th>Ngày kết thúc</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var rate in Model.Items)
+            {
+            <tr>
+                <td><input type="checkbox" class="rowCheckbox" data-id="@rate.RateId" /></td>
+                <td>@(Model.Items.IndexOf(rate) + 1)</td>
+                <td>@rate.ProductName</td>
+                <td>@CurrencyHelper.FormatVND(@rate.PricePerDay)</td>
+                <td>@CurrencyHelper.FormatVND(@rate.PricePerHour)</td>
+                <td>@rate.StartDate</td>
+                <td>@rate.EndDate</td>
+                <td>
+                    <span>
+                        <a href="javascript:void(0)" onclick="openForm('Rate','#Modal',@rate.RateId)" data-toggle="tooltip"
+                            data-placement="top" title="Sửa">
+                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="deleteItem('Rate',@rate.RateId)" data-toggle="tooltip"
+                            data-placement="top" title="Xoá">
+                            <i class="fa fa-close color-danger"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+
+        </tr>
+
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dataTables_paginate paging_simple_numbers float-end">
+            <ul class="pagination justify-content-left">
+                <li class="paginate_button page-item previous @(Model.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Rate',@Model.Page - 1, @Model.PageSize)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="paginate_button page-item @(i == Model.Page ? "active" : "")">
+                        <a class="page-link" onclick="loadPage('Rate',@i, @Model.PageSize)">@i</a>
+                    </li>
+                }
+
+                <li class="paginate_button page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Rate',@Model.Page + 1, @Model.PageSize)">Next</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>

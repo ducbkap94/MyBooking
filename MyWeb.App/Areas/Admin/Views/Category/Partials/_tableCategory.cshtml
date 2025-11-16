@@ -1,0 +1,78 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@model PagedResult<MyWeb.Data.Models.Category>
+<div id="table-container" style="position: relative; min-height: 200px;">
+    <div id="preloader" style="display:none; 
+                                position: absolute; 
+                                top: 50%; left: 50%; 
+                                transform: translate(-50%, -50%); 
+                                z-index: 10;">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" 
+                        fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+<table class="table header-border" id="CategoryTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>STT</th>
+            <th>Tên Nhóm</th>
+            <th>Chức năng</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var cat in Model.Items)
+            {
+            <tr>
+                <td><input type="checkbox" class="rowCheckbox" data-id="@cat.CategoryId"></td>
+                <td>@(Model.Items.IndexOf(cat) + 1)</td>
+                <td>@cat.Name</td>
+                <td>
+                    <span>
+                        <a href="javascript:void(0)" onclick="openForm('Category','#Modal',@cat.CategoryId)" data-toggle="tooltip"
+                            data-placement="top" title="Sửa">
+                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="deleteItem('Category',@cat.CategoryId)" data-toggle="tooltip"
+                            data-placement="top" title="Xoá">
+                            <i class="fa fa-close color-danger"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+
+        </tr>
+
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dataTables_paginate paging_simple_numbers float-end">
+            <ul class="pagination justify-content-left">
+                <li class="paginate_button page-item previous @(Model.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Category',@Model.Page - 1, @Model.PageSize)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="paginate_button page-item @(i == Model.Page ? "active" : "")">
+                        <a class="page-link" onclick="loadPage('Category',@i, @Model.PageSize)">@i</a>
+                    </li>
+                }
+
+                <li class="paginate_button page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Category',@Model.Page + 1, @Model.PageSize)">Next</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>

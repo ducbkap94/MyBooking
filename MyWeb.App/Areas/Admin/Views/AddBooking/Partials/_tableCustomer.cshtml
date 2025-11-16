@@ -1,0 +1,27 @@
+@using MyWeb.Common.Paging
+@model PagedResult<MyWeb.Business.Dtos.Customer.Response.CustomerResponse>
+<table class="table table-bordered align-middle" id="tblCustomerResult">
+        <thead class="table-light">
+          <tr>
+            <th>Tên khách hàng</th>
+            <th>SĐT</th>
+            <th>Email</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Items.Count > 0)
+            {
+                @foreach (var item in Model.Items)
+                {
+                <tr>
+                    <td>@item?.Name</td>
+                    <td>@item?.Phone</td>
+                    <td>@item?.Email</td>
+                    <td><button class="btn btn-sm btn-success btnSelectCustomer" data-name="@item?.Name" data-phone="@item?.Phone" data-email="@item?.Email" data-cccd="@item?.IdentityCard"  data-address="@item?.Address">Chọn</button></td>
+                </tr>
+                }
+            }
+          <!-- Kết quả AJAX khách hàng -->
+        </tbody>
+</table>

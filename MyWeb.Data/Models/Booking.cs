@@ -13,16 +13,13 @@ namespace MyWeb.Data.Models
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
-        [Required]
-        public DateTime StartDate { get; set; }
-
-        [Required]
-        public DateTime EndDate { get; set; }
-
         public decimal TotalAmount { get; set; }
+        public decimal? PaidAmount { get; set; }
+        public decimal? DebtAmount { get; set; }
+
 
         [MaxLength(50)]
-        public string? Status { get; set; }
+        public int? Status { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

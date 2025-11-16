@@ -9,26 +9,28 @@ public class MyWebDbContext : DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
     // ====== Catalog ======
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Product> Products { get; set; }
 
-        // ====== Inventory ======
-        public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<Maintenance> Maintenances { get; set; }
+    // ====== Inventory ======
+    public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<Maintenance> Maintenances { get; set; }
 
-        // ====== Booking ======
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
-        public DbSet<BookingDetail> BookingDetails { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+    // ====== Booking ======
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<BookingDetail> BookingDetails { get; set; }
+    public DbSet<Payment> Payments { get; set; }
 
-        // ====== Finance ======
-        public DbSet<CashBook> CashBooks { get; set; }
+    // ====== Finance ======
+    public DbSet<CashBook> CashBooks { get; set; }
 
-        // ====== Marketing ======
-        public DbSet<AdvertisingCost> AdvertisingCosts { get; set; }
+    // ====== Marketing ======
+    public DbSet<AdvertisingCost> AdvertisingCosts { get; set; }
     // ====== Brand ======
-        public DbSet<Brand> Brands { get; set; }
+    public DbSet<Brand> Brands { get; set; }
+    public DbSet<Asset> Assets { get; set; }
+    public DbSet<RentalRate> RentalRates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,10 +47,13 @@ public class MyWebDbContext : DbContext
             .HasOne(ur => ur.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.RoleId);
-        // ===== Decimal precision cho các trường tiền tệ =====
         modelBuilder.Entity<Product>()
-            .Property(p => p.PricePerDay)
-            .HasColumnType("decimal(18,2)");
+            .HasMany(p => p.Assets)
+            .WithOne(a => a.Product)
+            .HasForeignKey(a => a.ProductId);
+
+
+
 
         modelBuilder.Entity<Inventory>()
             .Property(p => p.QuantityAvailable)
@@ -70,17 +75,9 @@ public class MyWebDbContext : DbContext
             .Property(a => a.Amount)
             .HasColumnType("decimal(18,2)");
 
-        // ===== Quan hệ 1-1: Product - Inventory =====
-        modelBuilder.Entity<Product>()
-            .HasOne(p => p.Inventory)
-            .WithOne(i => i.Product)
-            .HasForeignKey<Inventory>(i => i.ProductId);
+
 
         // ===== Quan hệ 1-n: Product - Maintenance =====
-        modelBuilder.Entity<Product>()
-            .HasMany(p => p.Maintenances)
-            .WithOne(m => m.Product)
-            .HasForeignKey(m => m.ProductId);
 
         // ===== Quan hệ Booking - BookingDetail =====
         modelBuilder.Entity<Booking>()
@@ -109,13 +106,40 @@ public class MyWebDbContext : DbContext
         // ===== Quan hệ 1-n: Brand - Product =====
         modelBuilder.Entity<Brand>().ToTable("Brands").HasKey(b => b.Id);
         modelBuilder.Entity<Product>().HasOne(p => p.Brand).WithMany(b => b.Products).HasForeignKey(p => p.BrandId);
+        // ===== Thiết lập giá trị mặc định và dữ liệu khởi tạo cho User, Role, UserRole =====
+        modelBuilder.Entity<User>()
+            .Property(u => u.CreatedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
+        modelBuilder.Entity<User>()
+            .Property(u => u.UpdatedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
+        modelBuilder.Entity<Asset>()
+            .Property(x => x.PurchasePrice)
+            .HasPrecision(18, 2);
+        modelBuilder.Entity<Booking>()
+            .Property(x => x.TotalAmount)
+            .HasPrecision(18, 2);
+        modelBuilder.Entity<BookingDetail>()
+            .Property(x => x.PricePerUnit)
+            .HasPrecision(18, 2);
+        modelBuilder.Entity<RentalRate>()
+            .Property(x => x.PricePerDay)
+            .HasPrecision(18, 2);
+
+        modelBuilder.Entity<RentalRate>()
+            .Property(x => x.PricePerHour)
+            .HasPrecision(18, 2);
+        modelBuilder.Entity<Booking>()
+            .HasMany(b => b.BookingDetails)
+            .WithOne(d => d.Booking)
+            .HasForeignKey(d => d.BookingId)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<User>().HasData(new User
         {
             Id = 1,
             Username = "admin",
             PasswordHash = "$2a$11$SP9uoiu9At/n1f9dUSdguuIt6o.ScgEUhAIgmWkuqFKOQNKs3SVrq",
             Email = "ducbkap94@gmail.com",
-            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             FullName = "Lương Đức",
         }, new User
         {
@@ -123,13 +147,13 @@ public class MyWebDbContext : DbContext
             Username = "admin1",
             PasswordHash = "$2a$11$SP9uoiu9At/n1f9dUSdguuIt6o.ScgEUhAIgmWkuqFKOQNKs3SVrq",
             Email = "abc@gmail.com",
-            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
             FullName = "Lương Minh",
         }
                 );
         modelBuilder.Entity<Role>().HasData(
             new Role { Id = 1, Name = "Admin" },
-            new Role { Id = 2, Name = "User" }
+            new Role { Id = 2, Name = "User" },
+            new Role { Id = 3, Name = "Supplier" }
         );
 
         modelBuilder.Entity<UserRole>().HasData(
@@ -137,8 +161,8 @@ public class MyWebDbContext : DbContext
             new UserRole { UserId = 2, RoleId = 2 } // Admin  
         );
     }
-    
-    }
-    
-    
+
+}
+
+
 

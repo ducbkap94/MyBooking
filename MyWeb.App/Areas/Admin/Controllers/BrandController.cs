@@ -3,8 +3,13 @@ using MyWeb.Service;
 using MyWeb.Data.Models;
 using System.Threading.Tasks;
 using MyWeb.Common.Paging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 namespace MyWeb.App.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class BrandController : Controller
     {
@@ -22,6 +27,7 @@ namespace MyWeb.App.Areas.Admin.Controllers
             };
 
             var brands = await _brandService.GetBrandsByPagingAsync(request);
+
             return View(brands);
         }
         public async Task<IActionResult> LoadTable(int page = 1, int pageSize = 10)
@@ -49,7 +55,6 @@ namespace MyWeb.App.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Save([FromBody] Brand brand)
         {
-            Console.WriteLine($"Received brand: {brand?.Name}, Id: {brand?.Id}");
             if (brand.Id.ToString() == "" || brand.Id == 0)
             {
                 await _brandService.CreateBrandAsync(brand);
@@ -73,6 +78,18 @@ namespace MyWeb.App.Areas.Admin.Controllers
             }
             await _brandService.DeleteBrandAsync(brand);
             return Ok(new { success = true, message = "Xoá thương hiệu thành công" });
+        }
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchName, int page = 1, int pageSize = 10)
+        {
+            var request = new PagingRequest
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+
+            var brands = await _brandService.GetBrandsByPagingAsync(searchName, request);
+            return PartialView("Partials/_tablePartial", brands);
         }
         [HttpPost]
         public async Task<JsonResult> DeleteSelected(int[] request)
@@ -101,8 +118,5 @@ namespace MyWeb.App.Areas.Admin.Controllers
 
         }
     }
-    public class DeleteRequest
-    {
-        public List<int>? Ids { get; set; }
-    }
+   
 }

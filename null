@@ -1,0 +1,12 @@
+<!-- Common JS -->
+<script src="~/assets/admin/plugins/common/common.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<!-- Custom script -->
+<script src="~/assets/admin/js/custom.min.js"></script>
+<script src="~/assets/admin/js/adminCrud.js"></script>
+<!-- Chartjs chart -->
+<script src="~/assets/admin/plugins/chartjs/Chart.bundle.js"></script>
+<!-- Custom dashboard script -->
+<script src="~/assets/admin/js/dashboard-1.js"></script>
+@await RenderSectionAsync("Scripts", required: false)

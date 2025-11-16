@@ -80,5 +80,33 @@ namespace MyWeb.Data.Repositories
             };
 
         }
+
+        public Task<PagedResult<Brand>> GetBrandsPagingAsync(string searchName, PagingRequest request)
+        {
+            var query = _context.Brands.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                query = query.Where(b => b.Name.Contains(searchName));
+            }
+
+            var totalRecords = query.Count();
+
+            var items = query
+                .OrderBy(b => b.Name) // sắp xếp cho ổn định
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
+
+            var result = new PagedResult<Brand>
+            {
+                Items = items,
+                TotalRecords = totalRecords,
+                Page = request.Page,
+                PageSize = request.PageSize
+            };
+
+            return Task.FromResult(result);
+        }
     }
 }

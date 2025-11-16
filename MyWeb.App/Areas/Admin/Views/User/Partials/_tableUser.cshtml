@@ -1,0 +1,90 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@model PagedResult<MyWeb.Business.DTOs.User.UserResponse>
+
+<table class="table header-border" id="UserTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>STT</th>
+            <th>Tên đăng nhập</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Quyền</th>
+            <th>Trạng thái</th>
+            <th>Ngày tạo</th>
+            <th>Ngày cập nhật</th>
+            <th>Hành động</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var user in Model.Items)
+            {
+            <tr>
+                <td><input type="checkbox" class="rowCheckbox" data-id="@user.Id" /></td>
+                <td>@(Model.Items.IndexOf(user) + 1)</td>
+                <td>@user.Username</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    @if (user.Status == 1)
+                    {
+                        <span class="badge bg-success">Hoạt động</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Khóa</span>
+                    }
+                   
+                    </td>
+                <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>@user.UpdatedAt?.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <span>
+                        <a href="javascript:void(0)" onclick="openForm('User','#Modal',@user.Id)" data-toggle="tooltip"
+                            data-placement="top" title="Sửa">
+                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="deleteItem('User',@user.Id)" data-toggle="tooltip"
+                            data-placement="top" title="Xoá">
+                            <i class="fa fa-close color-danger"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+
+        </tr>
+
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dataTables_paginate paging_simple_numbers float-end">
+            <ul class="pagination justify-content-left">
+                <li class="paginate_button page-item previous @(Model.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Brand',@Model.Page - 1, @Model.PageSize)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="paginate_button page-item @(i == Model.Page ? "active" : "")">
+                        <a class="page-link" onclick="loadPage('Brand',@i, @Model.PageSize)">@i</a>
+                    </li>
+                }
+
+                <li class="paginate_button page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Brand',@Model.Page + 1, @Model.PageSize)">Next</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>

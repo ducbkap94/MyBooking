@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Mvc.RazorPages
 @using MyWeb.Common.Paging
 @model PagedResult<MyWeb.Data.Models.Brand>
-<table class="table header-border">
+<table class="table header-border" id="brandTable">
     <thead>
         <tr>
             <th></th>
@@ -21,11 +21,11 @@
                 <td>@brand.Name</td>
                 <td>
                     <span>
-                        <a href="javascript:void(0)" onclick="openBrandForm(@brand.Id)" data-toggle="tooltip"
+                        <a href="javascript:void(0)" onclick="openForm('Brand','#brandModal',@brand.Id)" data-toggle="tooltip"
                             data-placement="top" title="Sửa">
                             <i class="fa fa-pencil color-muted m-r-5"></i>
                         </a>
-                        <a href="javascript:void(0)" onclick="deleteBrand(@brand.Id)" data-toggle="tooltip"
+                        <a href="javascript:void(0)" onclick="deleteItem('Brand',@brand.Id)" data-toggle="tooltip"
                             data-placement="top" title="Xoá">
                             <i class="fa fa-close color-danger"></i>
                         </a>
@@ -43,18 +43,18 @@
         <div class="dataTables_paginate paging_simple_numbers float-end">
             <ul class="pagination justify-content-left">
                 <li class="paginate_button page-item previous @(Model.Page == 1 ? "disabled" : "")">
-                    <a class="page-link" onclick="loadPage(@Model.Page - 1, @Model.PageSize)">Previous</a>
+                    <a class="page-link" onclick="loadPage('Brand',@Model.Page - 1, @Model.PageSize)">Previous</a>
                 </li>
 
                 @for (int i = 1; i <= Model.TotalPages; i++)
                 {
                     <li class="paginate_button page-item @(i == Model.Page ? "active" : "")">
-                        <a class="page-link" onclick="loadPage(@i, @Model.PageSize)">@i</a>
+                        <a class="page-link" onclick="loadPage('Brand',@i, @Model.PageSize)">@i</a>
                     </li>
                 }
 
                 <li class="paginate_button page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
-                    <a class="page-link" onclick="loadPage(@Model.Page + 1, @Model.PageSize)">Next</a>
+                    <a class="page-link" onclick="loadPage('Brand',@Model.Page + 1, @Model.PageSize)">Next</a>
                 </li>
 
 

@@ -1459,6 +1459,16 @@
           }
         }
       },
+      "MyWeb.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/MyWeb.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyWeb.Business.dll": {}
+        }
+      },
       "MyWeb.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -1473,8 +1483,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "Microsoft.AspNetCore.Identity": "2.3.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.7",
+          "MyWeb.Business": "1.0.0",
           "MyWeb.Common": "1.0.0"
         },
         "compile": {
@@ -3607,6 +3619,11 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "MyWeb.Business/1.0.0": {
+      "type": "project",
+      "path": "../MyWeb.Business/MyWeb.Business.csproj",
+      "msbuildProject": "../MyWeb.Business/MyWeb.Business.csproj"
     },
     "MyWeb.Common/1.0.0": {
       "type": "project",

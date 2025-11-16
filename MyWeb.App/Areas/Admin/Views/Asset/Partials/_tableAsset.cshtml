@@ -1,0 +1,79 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@using MyWeb.Common.Helpers
+@model PagedResult<MyWeb.Business.Dtos.Asset.Response.AssetTableResponse>
+
+<table class="table header-border" id="AssetTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>SerialNumber</th>
+            <th>Nhà cung cấp</th>
+            <th>Giá mua</th>
+            <th>Ngày mua</th>
+            <th>Thời gian bảo hành</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var asset in Model.Items)
+            {
+            <tr>
+                <td><input type="checkbox" class="rowCheckbox" data-id="@asset.Id" /></td>
+                <td>@(Model.Items.IndexOf(asset) + 1)</td>
+                <td>@asset.ProductName</td>
+                <td>@asset.SerialNumber</td>
+                <td>@asset.Supplier</td>
+                <td>@CurrencyHelper.FormatVND(@asset.PurchasePrice)</td>
+                <td>@asset.PurchaseDate</td>
+                <td>@asset.WarrantyPeriod</td>
+                <td>@AssetStatusHelper.GetStatusName(@asset.Status)</td>
+                
+                <td>
+                    <span>
+                        <a href="javascript:void(0)" onclick="openForm('Asset','#Modal',@asset.Id)" data-toggle="tooltip"
+                            data-placement="top" title="Sửa">
+                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="deleteItem('Asset',@asset.Id)" data-toggle="tooltip"
+                            data-placement="top" title="Xoá">
+                            <i class="fa fa-close color-danger"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+
+        </tr>
+
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="dataTables_paginate paging_simple_numbers float-end">
+            <ul class="pagination justify-content-left">
+                <li class="paginate_button page-item previous @(Model.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Asset',@Model.Page - 1, @Model.PageSize)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="paginate_button page-item @(i == Model.Page ? "active" : "")">
+                        <a class="page-link" onclick="loadPage('Asset',@i, @Model.PageSize)">@i</a>
+                    </li>
+                }
+
+                <li class="paginate_button page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" onclick="loadPage('Asset',@Model.Page + 1, @Model.PageSize)">Next</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+</div>

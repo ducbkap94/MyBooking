@@ -13,6 +13,8 @@ namespace MyWeb.Service
         Task<bool> DeleteSelectedBrandsAsync(List<Brand> brands);
         Task<bool> DeleteBrandAsync(Brand brand);
         Task<PagedResult<Brand>> GetBrandsByPagingAsync(PagingRequest pagingRequest);
+        Task<PagedResult<Brand>> GetBrandsByPagingAsync(string searchName, PagingRequest pagingRequest);
+    
     }
 
 }

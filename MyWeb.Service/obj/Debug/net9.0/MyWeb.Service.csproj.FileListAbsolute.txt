@@ -37,13 +37,16 @@
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Service.AssemblyInfoInputs.cache
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Service.AssemblyInfo.cs
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Service.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Service.sourcelink.json
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Service.deps.json
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Service.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Service.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Business.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Common.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Data.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Data.pdb
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Common.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/bin/Debug/net9.0/MyWeb.Business.pdb
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Se.5182AB5E.Up2Date
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/MyWeb.Service.dll
 /Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Service/obj/Debug/net9.0/refint/MyWeb.Service.dll

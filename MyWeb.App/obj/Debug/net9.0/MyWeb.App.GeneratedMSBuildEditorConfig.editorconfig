@@ -20,8 +20,44 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/AddBooking/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkQm9va2luZy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/AddBooking/Partials/_tableAsset.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkQm9va2luZy9QYXJ0aWFscy9fdGFibGVBc3NldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/AddBooking/Partials/_tableCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRkQm9va2luZy9QYXJ0aWFscy9fdGFibGVDdXN0b21lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Asset/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXNzZXQvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Asset/Partials/_assetForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXNzZXQvUGFydGlhbHMvX2Fzc2V0Rm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Asset/Partials/_tableAsset.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXNzZXQvUGFydGlhbHMvX3RhYmxlQXNzZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQXV0aC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Booking/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQm9va2luZy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Booking/Partials/_formAddBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQm9va2luZy9QYXJ0aWFscy9fZm9ybUFkZEJvb2tpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Booking/Partials/_tableBooking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQm9va2luZy9QYXJ0aWFscy9fdGFibGVCb29raW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Brand/Index.cshtml]
@@ -36,8 +72,56 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQnJhbmQvUGFydGlhbHMvX3RhYmxlUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Category/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ2F0ZWdvcnkvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Category/Partials/_categoryForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ2F0ZWdvcnkvUGFydGlhbHMvX2NhdGVnb3J5Rm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Category/Partials/_tableCategory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ2F0ZWdvcnkvUGFydGlhbHMvX3RhYmxlQ2F0ZWdvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Customer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ3VzdG9tZXIvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Customer/Partials/_customerForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ3VzdG9tZXIvUGFydGlhbHMvX2N1c3RvbWVyRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Customer/Partials/_tableCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ3VzdG9tZXIvUGFydGlhbHMvX3RhYmxlQ3VzdG9tZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Home/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSG9tZS9pbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Product/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUHJvZHVjdC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Product/Partials/_productForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUHJvZHVjdC9QYXJ0aWFscy9fcHJvZHVjdEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Product/Partials/_tableProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUHJvZHVjdC9QYXJ0aWFscy9fdGFibGVQcm9kdWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Rate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUmF0ZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Rate/Partials/_rateForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUmF0ZS9QYXJ0aWFscy9fcmF0ZUZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Rate/Partials/_tableRate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvUmF0ZS9QYXJ0aWFscy9fdGFibGVSYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Shared/_SidebarPartial.cshtml]
@@ -46,6 +130,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/User/Partials/_tableUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9QYXJ0aWFscy9fdGFibGVVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Areas/Admin/Views/User/Partials/_userForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9QYXJ0aWFscy9fdXNlckZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.App/Views/Home/Index.cshtml]

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable> 
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
@@ -15,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWeb.Common\MyWeb.Common.csproj" />
+    <ProjectReference Include="..\MyWeb.Business\MyWeb.Business.csproj" />
   </ItemGroup>
 
   

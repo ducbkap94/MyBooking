@@ -1,0 +1,81 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Paging
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@model PagedResult<MyWeb.Business.Dtos.Customer.Response.CustomerResponse>
+<div class="row mb-5">
+    <div class="col-6">
+        <form id="searchForm" class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3 d-flex align-items-center" style="font-size: 18px">
+                Tìm kiếm:
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="w-100 h-100 form-control-sm" id="searchName" name="searchName"
+                    onkeyup="searchItem('Customer', '#searchName', '#table-container')"
+                    placeholder="Nhập tên cần tìm...">
+            </div>
+
+        </form>
+    </div>
+    <div class="col-auto d-flex gap-2 ms-auto">
+
+
+                <!-- Nút mở Modal -->
+                <button type="submit" class="btn btn-primary flex-fill" onclick="openForm('Customer','#Modal',0)">
+                    Thêm mới
+                </button>
+
+                <!-- Nút Tải lại -->
+                <button type="submit" class="btn btn-outline-secondary flex-fill" onclick="loadPage(1, 10)">
+                    Tải lại
+                </button>
+
+                <!-- Nút Xuất Excel -->
+                <button type="submit" class="btn btn-success flex-fill">
+                    Xuất Excel
+                </button>
+
+                <button type="submit" class="btn btn-danger flex-fill"
+                    onclick="deleteSelected('Customer', '#table-container')">
+                    Xoá</button>
+
+            
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Kho thiết bị</h4>
+                <div class="table-responsive dataTables_wrapper" id="table-container">
+                    @await Html.PartialAsync("Partials/_tableCustomer", Model);
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="margin-top: 120px;">
+            <div class="modal-header">
+                <h5 class="modal-title">Danh sách khách hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="ModalBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/admin/js/adminCrud.js"></script>
+    <script src="~/assets/admin/js/just-validate.production.min.js"></script>
+
+}

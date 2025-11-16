@@ -1,0 +1,51 @@
+@model MyWeb.Data.Models.Category
+<!-- Modal -->
+
+                <form id="categoryForm" method="post">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" id="Name" name="Name" value="@Model?.Name" class="form-control" />
+                        <input type="hidden"  name="CategoryId" id="CategoryId" value="@Model?.CategoryId" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <input type="text" id="Description" name="Description" value="@Model?.Description" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+
+<script>
+    const validation = new JustValidate('#categoryForm');
+
+    validation
+
+        .addField('#Name', [
+            { rule: 'required', errorMessage: 'Vui lòng chọn thiết bị' },
+        ])
+        
+    
+        .onSuccess((event) => {
+            event.preventDefault();
+            const form = document.querySelector('#categoryForm');
+            const formData = new FormData(form);
+
+            fetch('/Admin/Category/Save', {
+                method: 'POST',
+                body: formData
+            }) .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    location.reload();
+                })              
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert(data.message);
+                });
+        });
+</script>

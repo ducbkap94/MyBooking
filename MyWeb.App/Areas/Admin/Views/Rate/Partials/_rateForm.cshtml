@@ -1,0 +1,91 @@
+@model MyWeb.Business.Dtos.RentalRate.RentalRateFromResponse
+
+<!-- Modal -->
+
+                <form id="rateForm" method="post">
+                <div class="form-group">
+                        <label>Loại thiết bị</label>
+                        <select id="ProductId" name="ProductId" class="form-control">
+                            <option value="">--- Chọn loại thiết bị ----</option>
+                            
+                            @foreach (var prod in Model.Products)
+                            {
+                                <option value="@prod.Id" @(prod.Id == Model.RentalRate?.ProductId ? "selected" : "")>@prod.Name</option>
+                            }
+                            
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Giá theo ngày</label>
+                        <input type="text" id="PricePerDay" name="PricePerDay" value="@Model.RentalRate?.PricePerDay" class="form-control" />
+                        <input type="hidden"  name="RateId" id="RateId" value="@Model.RentalRate?.RateId" />
+                    </div>
+                    <div class="form-group">
+                        <label>Giá theo giờ</label>
+                        <input type="text" id="PricePerHour" name="PricePerHour" value="@Model.RentalRate?.PricePerHour.Value" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày áp dụng</label>
+                        <input type="date"   id="StartDate" name="StartDate" value='@Model.RentalRate?.StartDate?.ToString("yyyy-MM-dd")' class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày kết thúc</label>
+                        <input type="date"   id="EndDate" name="EndDate" value='@Model.RentalRate?.EndDate?.ToString("yyyy-MM-dd")' class="form-control" />
+                    </div>
+                    
+                    
+                    
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+
+<script>
+
+
+
+    const validation = new JustValidate('#rateForm');
+
+    validation
+
+        .addField('#ProductId', [
+            { rule: 'required', errorMessage: 'Vui lòng chọn thiết bị' },
+        ])
+        .addField('[name="PricePerDay"]',[
+            { rule: 'required', errorMessage: 'Vui nhập giá theo ngày.' },
+            { rule: 'number', errorMessage: 'Giá phải là số' },
+        ])
+        .addField('#PricePerHour',[
+            { rule: 'required', errorMessage: 'Vui lòng nhập giá theo giờ' },
+            { rule: 'number', errorMessage: 'Giá phải là số' },
+        ])
+        .addField('#StartDate',[
+            { rule: 'required', errorMessage: 'Vui lòng nhập ngày nhập kho' },
+        ])
+        .addField('#EndDate',[
+            { rule: 'required', errorMessage: 'Vui lòng nhập ngày kết thúc' },
+        ])
+    
+        .onSuccess((event) => {
+            event.preventDefault();
+            const form = document.querySelector('#rateForm');
+            const formData = new FormData(form);
+
+            fetch('/Admin/Rate/Save', {
+                method: 'POST',
+                body: formData
+            }) .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    location.reload();
+                })              
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert(data.message);
+                });
+        });
+</script>

@@ -1,0 +1,196 @@
+@model MyWeb.Business.DTOs.User.RegisterUserRequest
+
+
+<div class="container" id="userForm">
+
+    <form id="registerForm2" class="row g-3">
+        <!-- Full Name -->
+        <div class="col-md-12">
+            <label class="form-label">Họ và tên:</label>
+            <input type="text" name="Fullname" value="@Model.FullName" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Tài khoản:</label>
+            <input type="text" name="Username" value="@Model.Username"" @(Model.Id != 0 ? "readonly" : "") class="form-control" />
+            <input type="hidden" name="Id" value="@Model.Id"  />
+        </div>
+        <!-- Password -->
+        <div class="col-md-6">
+            <label class="form-label">Mật khẩu:</label>
+            <input type="password" name="Password" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label for="Gender" class="form-label">Giới tính:</label>
+            <select id="Gender" name="Gender" class="form-control">
+                <option value="">--- Chọn giới tính ----</option>
+                <option value="1" @(Model.Gender == 1 ? "selected" : "")>Nam</option>
+                <option value="2" @(Model.Gender == 2 ? "selected" : "")>Nữ</option>
+                <option value="3" @(Model.Gender == 3 ? "selected" : "")>Không xác định</option>
+            </select>
+        </div>
+        <!-- Birthday -->
+        <div class="col-md-6">
+            <label class="form-label">Ngày sinh:</label>
+            <input name="DateOfBirth" type="date" value="@(Model.DateOfBirth?.ToString("yyyy-MM-dd"))" class="form-control" />
+        </div>
+        <!-- Căn cước công dân-->
+        <div class="col-md-6">
+            <label class="form-label">Căn cước công dân:</label>
+            <input type="text" name="IdentityNumber" value="@Model.IdentityNumber" class="form-control" />
+        </div>
+        <!-- Username -->
+
+        <!-- Phone Number -->
+        <div class="col-md-6">
+            <label class="form-label">Số điện thoại</label>
+            <input type="number" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" />
+
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-12">
+            <label class="form-label">Địa chỉ</label>
+            <input type="text" name="Address" value="@Model.Address" class="form-control" />
+        </div>
+        <!-- Email -->
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" name="Email" @(Model.Id!=0 ? "readonly" : "") value="@Model.Email" class="form-control" />
+        </div>
+        <!-- Phân quyền -->
+        <div class="col-md-6">
+            <label class="form-label">Phân Quyền</label>
+            <div class="form-check row m-l-20">
+                <input type="checkbox" name="Roles" class="form-check-input" @(Model.Roles.Contains("Admin") ? "checked" : "") value="1">
+                <label class="form-check-label">Quản trị viên</label>
+                <input type="checkbox" class="form-check-input" name="Roles" @(Model.Roles.Contains("User") ? "checked" : "")) value="2">
+                <label class="form-check-label">Người dùng</label>
+                <input name="Roles" type="checkbox" id="roleSupplier" @(Model.Roles.Contains("Supplier") ? "checked" : "") class="form-check-input" value="3">
+                <label class="form-check-label">Nhà cung cấp</label>
+            </div>
+        </div>
+        <!-- Mã số thuế -->
+        <div class="row @(Model.Roles.Contains("Supplier") ? "" :"d-none")" id="supplierDiv">
+            <div class="col-md-12">
+                <label class="form-label">Mã số thuế</label>
+                <input type="text" name="TaxCode" value="@Model.TaxCode" class="form-control" />
+            </div>
+            <!-- Mã số thuế -->
+            <div class="col-md-6">
+                <label class="form-label">Số tài khoản</label>
+                <input type="text" name="BankAccount" value="@Model.BankAccount" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Ngân hàng</label>
+                <input type="text" name="BankName" value="@Model.BankName" class="form-control" />
+            </div>
+        </div>
+        <!-- Trạng thái -->
+        <div class="col-md-6">
+            <label class="form-label">Trạng thái</label>
+            
+               <select name="Status" class="form-control">
+                    <option value="1" @(Model.Status == 1 ? "selected" : "")>Hoạt động</option>
+                    <option value="0" @(Model.Status == 0 ? "selected" : "")>Khoá</option>
+               </select>
+           
+        </div>
+        <!-- Submit -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    const validation = new JustValidate('#registerForm2');
+
+    validation
+
+        .addField('[name="Fullname"]', [
+            { rule: 'required', errorMessage: 'Họ và tên không được để trống' },
+            { rule: 'minLength', value: 3, errorMessage: 'Ít nhất 3 ký tự' }
+        ])
+        .addField('[name="Username"]', [
+            { rule: 'required', errorMessage: 'Tên đăng nhập không được để trống' },
+            { rule: 'minLength', value: 3, errorMessage: 'Ít nhất 3 ký tự' }
+        ])
+        .addField('[name="Password"]', [
+            { rule: 'required', errorMessage: 'Mật khẩu không được để trống' },
+            { rule: 'minLength', value: 6, errorMessage: 'Ít nhất 6 ký tự' },
+            {
+                rule: 'customRegexp',
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/,
+                errorMessage: 'Mật khẩu phải chứa ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt'
+            }
+        ]).addField('[name="PhoneNumber"]', [
+            { rule: 'required', errorMessage: 'Số điện thoại không được để trống' },
+            { rule: 'minLength', value: 10, errorMessage: 'Ít nhất 10 ký tự' },
+            { rule: 'maxLength', value: 11, errorMessage: 'Không quá 11 ký tự' },
+            { rule: 'number', errorMessage: 'Số điện thoại không hợp lệ' }
+        ]).addField('[name="Email"]', [
+            { rule: 'required', errorMessage: 'Email không được để trống' },
+            { rule: 'email', errorMessage: 'Email không hợp lệ' }
+        ]).addField('[name="IdentityNumber"]', [
+            { rule: 'required', errorMessage: 'Căn cước công dân không được để trống' },
+            { rule: 'minLength', value: 9, errorMessage: 'Ít nhất 9 ký tự' },
+            { rule: 'maxLength', value: 12, errorMessage: 'Không quá 12 ký tự' },
+            { rule: 'number', errorMessage: 'Căn cước công dân không hợp lệ' }
+        ]).addField('[name="TaxCode"]', [
+            {
+                rule: 'maxLength', value: 13, errorMessage: 'Không quá 13 ký tự'
+            },
+            { rule: 'number', errorMessage: 'Mã số thuế không hợp lệ' }
+        ]).
+        addField('[name="BankAccount"]', [
+            {
+                rule: 'maxLength', value: 15, errorMessage: 'Không quá 15 ký tự'
+            },
+            { rule: 'number', errorMessage: 'Số tài khoản không hợp lệ' }
+        ]).
+        addField('[name="BankName"]', [
+            {
+                rule: 'maxLength', value: 50, errorMessage: 'Không quá 50 ký tự'
+            }
+        ])
+        .addField('[name="DateOfBirth"]', [
+            { rule: 'required', errorMessage: 'Vui lòng chọn ngày sinh' },
+            {
+                validator: (value) => {
+                    const inputDate = new Date(value);
+                    const today = new Date();
+                    // bỏ giờ phút giây để so sánh chính xác
+                    inputDate.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
+                    return inputDate <= today;
+                }, errorMessage: 'Ngày sinh không hợp lệ(ngày sinh phải trước ngày hiện tại)'
+            }
+        ])
+        .addField('#Gender', [
+            { rule: 'required', errorMessage: 'Vui lòng chọn giới tính' },
+        ])
+
+        .onSuccess((event) => {
+            event.preventDefault();
+            const form = document.querySelector('#registerForm2');
+            const formData = new FormData(form);
+
+            fetch('/Admin/User/Save', {
+                method: 'POST',
+                body: formData
+            }) .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    window.location.reload();
+                })              
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert(data.message);
+                });
+        });
+</script>

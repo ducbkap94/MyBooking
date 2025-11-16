@@ -1,0 +1,348 @@
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MyWeb.Common.Helpers
+@using MyWeb.Common.Paging
+@{
+  ViewData["Title"] = "Tạo đơn đặt thuê";
+  Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@model PagedResult<MyWeb.Business.Dtos.Asset.Response.AssetTableResponse>
+
+<div class="container mt-5">
+  <h3 class="mb-4 text-primary">🧾 Lên đơn cho thuê thiết bị</h3>
+
+  <!-- ========== Tìm kiếm khách hàng ========== -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      Thông tin khách hàng
+    </div>
+    <div class="card-body">
+
+      <div class="row g-2 align-items-end mb-2">
+        <!-- Ngày bắt đầu -->
+        <div class="col-md-9">
+          <label for="startDate" class="form-label">Tìm kiếm khách hàng</label>
+          <input type="text" id="customerSearch" class="form-control"
+            onkeyup="searchItem('AddBooking', '#customerSearch', '#table-container1')"
+            placeholder="Nhập tên hoặc số điện thoại khách hàng...">
+        </div>
+
+        <!-- Ngày kết thúc -->
+        <div class="col-md-3">
+          <button class="btn btn-primary" onclick="openForm('Customer','#Modal',0)" id="btnSearchCustomer">Thêm Khách hàng</button>
+        </div>
+        <!-- Bảng kết quả tìm khách hàng -->
+
+        <div class="table-responsive dataTables_wrapper" id="table-container1">
+          @await Html.PartialAsync("Partials/_tableCustomer")
+        </div>
+
+        <!-- Form thông tin khách hàng -->
+        <div class="row g-3 mt-3">
+          <div class="col-md-4">
+            <label>Họ và tên</label>
+            <input type="text" class="form-control" id="customerName" placeholder="Tên khách hàng...">
+          </div>
+          <div class="col-md-4">
+            <label>Số điện thoại</label>
+            <input type="text" class="form-control" id="customerPhone" placeholder="SĐT...">
+          </div>
+          <div class="col-md-4">
+            <label>Email</label>
+            <input type="email" class="form-control" id="customerEmail" placeholder="Email (nếu có)...">
+          </div>
+        </div>
+        <div class="row g-3 mt-3">
+          <div class="col-md-4">
+            <label>Căn cước công dân</label>
+            <input type="text" class="form-control" id="customerCCCD" placeholder="Căn cước công dân...">
+          </div>
+          <div class="col-md-8">
+            <label>Địa chỉ</label>
+            <input type="text" class="form-control" id="customerAddress" placeholder="Địa chỉ...">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Tìm kiếm thiết bị ========== -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-info text-white">
+        🔍 Tìm kiếm và thêm thiết bị cho đơn thuê
+      </div>
+      <div class="card-body">
+
+        <div class="row g-3 align-items-end mb-3">
+          <!-- Ngày bắt đầu -->
+          <div class="col-md-3">
+            <label for="startDate" class="form-label">Từ ngày thuê:</label>
+            <input type="date" class="form-control" id="startDate">
+          </div>
+
+          <!-- Ngày kết thúc -->
+          <div class="col-md-3">
+            <label for="endDate" class="form-label">Đến ngày:</label>
+            <input type="date" class="form-control" id="endDate">
+          </div>
+
+          <!-- Ô tìm kiếm thiết bị -->
+          <div class="col-md-4">
+            <label for="deviceSearch" class="form-label">Tên thiết bị:</label>
+            <input type="text" class="form-control" id="deviceSearch" placeholder="Nhập tên thiết bị...">
+          </div>
+
+          <!-- Nút tìm kiếm -->
+          <div class="col-md-2 d-grid">
+            <button class="btn btn-primary" id="btnSearchDevice"
+              onclick="searchItemAsset('AddBooking', '#deviceSearch', '#startDate', '#endDate')">Tìm thiết bị</button>
+          </div>
+        </div>
+        <div class="table-responsive dataTables_wrapper" id="table-container">
+          @await Html.PartialAsync("Partials/_tableAsset")
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Danh sách thiết bị trong đơn ========== -->
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white">
+        Chi tiết đơn cho thuê
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered align-middle" id="tblOrderDetail">
+          <thead class="table-light">
+            <tr>
+              <th>STT</th>
+              <th>Tên thiết bị</th>
+              <th>Serial Number</th>
+              <th>Đơn giá / ngày</th>
+              <th>Ngày bắt đầu thuê</th>
+              <th>Ngày kết thúc thuê</th>
+              <th>Số ngày thuê</th>
+              <th>Giảm giá (%)</th>
+              <th>Thành tiền</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-end">
+        <strong>Tổng tiền: <span id="totalAmount" class="text-danger">0</span> ₫</strong>
+        <button class="btn btn-primary ms-3" id="btnSaveOrder">💾 Lưu đơn hàng</button>
+      </div>
+    </div>
+  </div>
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="margin-top: 120px;">
+            <div class="modal-header">
+                <h5 class="modal-title">Nhập kho thiết bị</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="ModalBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/admin/js/adminCrud.js"></script>
+    <script src="~/assets/admin/js/just-validate.production.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        let orderDetails = [];
+
+        // ==========================
+        // 🧍 Chọn khách hàng -> đổ vào form
+        // ==========================
+        $(document).on('click', '.btnSelectCustomer', function () {
+          $('#customerName').val($(this).data('name'));
+          $('#customerPhone').val($(this).data('phone'));
+          $('#customerEmail').val($(this).data('email'));
+          $('#customerCCCD').val($(this).data('cccd'));
+          $('#customerAddress').val($(this).data('address'));
+          $('#tblCustomerResult tbody').empty(); // ẩn bảng sau khi chọn
+        });
+
+
+        // ==========================
+        // ➕ Thêm thiết bị vào đơn
+        // ==========================
+        $(document).on('click', '.btnAddDevice', function () {
+          let id = $(this).data('id');
+          let name = $(this).data('name');
+          let seriNumber = $(this).data('seri');
+          let price = $(this).data('price');
+
+          let startDateVal = $('#startDate').val();
+          let endDateVal = $('#endDate').val();
+
+          if (!startDateVal || !endDateVal) {
+            alert('⚠️ Vui lòng chọn cả ngày bắt đầu và ngày kết thúc');
+            return;
+          }
+
+          let start = new Date(startDateVal);
+          let end = new Date(endDateVal);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(0, 0, 0, 0);
+
+          let today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+
+          // Tính số ngày (đã bao gồm ngày đầu và ngày cuối)
+          let diffDays = Math.floor(
+            (Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()) -
+              Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()))
+            / (1000 * 60 * 60 * 24)
+          ) + 1;
+
+          if (orderDetails.find(d => d.id === id)) {
+            alert("⚠️ Thiết bị này đã được thêm!");
+            return;
+          }
+
+          orderDetails.push({ id, name, price, start, end, seriNumber, quantity: 1, days: diffDays });
+          renderOrderTable();
+        });
+
+
+        // ==========================
+        // ❌ Xóa thiết bị
+        // ==========================
+        $(document).on('click', '.btnDelete', function () {
+          let id = $(this).data('id');
+          orderDetails = orderDetails.filter(d => d.id !== id);
+          renderOrderTable();
+        });
+
+
+        // ==========================
+        // 🧾 Render lại bảng chi tiết đơn
+        // ==========================
+        function renderOrderTable() {
+          let tbody = $('#tblOrderDetail tbody');
+          tbody.empty();
+          let total = 0;
+
+          orderDetails.forEach((d, i) => {
+            let discount = d.discount || 0;
+            let subtotal = d.price * d.days * (1 - discount / 100);
+            total += subtotal;
+            let price = Math.round(Number(d.price));
+            tbody.append(`
+                        <tr>
+                          <td>${i + 1}</td>
+                          <td>${d.name}</td>
+                          <td>${d.seriNumber}</td>
+                          <td>${price.toLocaleString('vi-VN',{ maximumFractionDigits: 0 })} ₫</td>
+                          <td>${d.start.toLocaleDateString('vi-VN')}</td>
+                          <td>${d.end.toLocaleDateString('vi-VN')}</td>
+                          <td>${d.days}</td>
+                          <td><input type="number" class="form-control form-control-sm discount-input" 
+                         data-id="${d.id}" value="${discount}" min="0" max="100"></td>
+                          <td>${subtotal.toLocaleString('vi-VN')} ₫</td>
+                          <td><button class="btn btn-sm btn-danger btnDelete" data-id="${d.id}">   <i class="fa fa-trash color-white"></i> Xóa</button></td>
+                        </tr>
+                      `);
+          });
+
+          $('#totalAmount').text(total.toLocaleString());
+        }
+
+
+        // ==========================
+        // ✏️ Cập nhật số lượng hoặc số ngày
+        // ==========================
+        $(document).on('change', '.qty, .days', function () {
+          let id = $(this).data('id');
+          let value = parseInt($(this).val());
+          let key = $(this).hasClass('qty') ? 'quantity' : 'days';
+          orderDetails = orderDetails.map(d => d.id === id ? { ...d, [key]: value } : d);
+          renderOrderTable();
+        });
+        // Lắng nghe khi người dùng nhập % giảm giá
+        $(document).on('input', '.discount-input', function () {
+          let id = $(this).data('id');
+          let discount = parseFloat($(this).val()) || 0;
+
+          // Giới hạn 0–100
+          if (discount < 0) discount = 0;
+          if (discount > 100) discount = 100;
+
+          // Cập nhật giá trị discount trong mảng orderDetails
+          let item = orderDetails.find(d => d.id === id);
+          if (!item) return;
+          item.discount = discount;
+
+          // Tính lại thành tiền cho dòng hiện tại
+          let subtotal = item.price * item.days * (1 - discount / 100);
+          let row = $(this).closest('tr');
+
+          // Cập nhật lại cột thành tiền
+          row.find('td:nth-last-child(2)').text(subtotal.toLocaleString() + ' ₫');
+
+          // Tính lại tổng tiền toàn bộ đơn
+          let total = 0;
+          orderDetails.forEach(d => {
+            let sub = d.price * d.days * (1 - (d.discount || 0) / 100);
+            total += sub;
+          });
+
+          $('#totalAmount').text(total.toLocaleString() + ' ₫');
+        });
+        // ✅ Gắn hàm tìm kiếm vào global scope để có thể gọi từ HTML onclick
+        window.searchItemAsset = function (controller, searchId, dateId1, dateId2, tableContainer = "#table-container") {
+          const keyword = $(searchId).val();
+          const date1 = $(dateId1).val();
+          const date2 = $(dateId2).val();
+
+          if (!date1 || !date2) {
+            alert('⚠️ Vui lòng chọn cả ngày bắt đầu và kết thúc');
+            return;
+          }
+
+          let start = new Date(date1);
+          let end = new Date(date2);
+          let today = new Date();
+          today.setHours(0, 0, 0, 0);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(0, 0, 0, 0);
+
+          // Kiểm tra ngày bắt đầu phải là hôm nay
+          if (start.getTime() < today.getTime()) {
+            alert('⚠️ Ngày bắt đầu phải là hôm nay (' + today.toLocaleDateString('vi-VN') + ')');
+            return;
+          }
+
+          // Kiểm tra ngày kết thúc phải >= ngày bắt đầu
+          if (end.getTime() < start.getTime()) {
+            alert('⚠️ Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu');
+            return;
+          }
+
+          clearTimeout(window.debounceTimer);
+          window.debounceTimer = setTimeout(function () {
+            $.ajax({
+              url: `/Admin/${controller}/SearchAsset`,
+              type: 'GET',
+              data: { searchName: keyword, startDate: date1, endDate: date2 },
+              success: function (data) {
+                $(tableContainer).html(data);
+              },
+              error: function () {
+                console.error("Search error");
+              }
+            });
+          }, 300);
+        };
+      });
+      // Khi người dùng thay đổi % giảm giá
+
+    </script>
+}

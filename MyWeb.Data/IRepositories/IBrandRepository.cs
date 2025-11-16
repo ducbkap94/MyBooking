@@ -12,6 +12,7 @@ namespace MyWeb.Data.IRepositories
         Task<bool> DeleteBrandAllAsync(List<Brand> brands);
         Task<bool> DeleteBrandAsync(Brand brand);
         Task<PagedResult<Brand>> GetBrandsPagingAsync(PagingRequest request);
+        Task<PagedResult<Brand>> GetBrandsPagingAsync(string searchName, PagingRequest request);
 
     }
 }

@@ -67,6 +67,16 @@ namespace MyWeb.Service
 
             return _brandRepo.GetBrandsPagingAsync(pagingRequest);
         }
+
+        public Task<PagedResult<Brand>> GetBrandsByPagingAsync(string searchName, PagingRequest pagingRequest)
+        {
+            if (pagingRequest == null)
+            {
+                throw new ArgumentNullException(nameof(pagingRequest), "Paging request cannot be null");
+            }
+
+            return _brandRepo.GetBrandsPagingAsync(searchName, pagingRequest);
+        }
     }   
 }
     

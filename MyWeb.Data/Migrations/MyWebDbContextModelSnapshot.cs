@@ -60,6 +60,53 @@ namespace MyWeb.Data.Migrations
                     b.ToTable("AdvertisingCosts");
                 });
 
+            modelBuilder.Entity("MyWeb.Data.Models.Asset", b =>
+                {
+                    b.Property<int>("AssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssetId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarrantyPeriod")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssetId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Assets");
+                });
+
             modelBuilder.Entity("MyWeb.Data.Models.Booking", b =>
                 {
                     b.Property<int>("BookingId")
@@ -74,17 +121,18 @@ namespace MyWeb.Data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal?>("DebtAmount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal?>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Status")
+                    b.Property<int?>("Status")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BookingId");
@@ -102,23 +150,48 @@ namespace MyWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingDetailId"));
 
+                    b.Property<int>("AssetId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("PricePerUnit")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("PricePerUnit")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("RateType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("BookingDetailId");
 
-                    b.HasIndex("BookingId");
+                    b.HasIndex("AssetId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("BookingId");
 
                     b.ToTable("BookingDetails");
                 });
@@ -132,7 +205,6 @@ namespace MyWeb.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -177,17 +249,12 @@ namespace MyWeb.Data.Migrations
                     b.Property<int?>("PaymentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("CashBookId");
 
                     b.HasIndex("MaintenanceId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("CashBooks");
                 });
@@ -337,9 +404,6 @@ namespace MyWeb.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("PaymentId");
 
                     b.HasIndex("BookingId");
@@ -347,8 +411,6 @@ namespace MyWeb.Data.Migrations
                     b.HasIndex("CashBookId")
                         .IsUnique()
                         .HasFilter("[CashBookId] IS NOT NULL");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Payments");
                 });
@@ -370,23 +432,13 @@ namespace MyWeb.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PricePerHour")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("Specification")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 
@@ -397,29 +449,44 @@ namespace MyWeb.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MyWeb.Data.Models.ProductImage", b =>
+            modelBuilder.Entity("MyWeb.Data.Models.RentalRate", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<int>("RateId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RateId"));
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("AssetId")
                         .HasColumnType("int");
 
-                    b.HasKey("ImageId");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PricePerDay")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PricePerHour")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RateId");
+
+                    b.HasIndex("AssetId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImage");
+                    b.ToTable("RentalRates");
                 });
 
             modelBuilder.Entity("MyWeb.Data.Models.Role", b =>
@@ -447,6 +514,11 @@ namespace MyWeb.Data.Migrations
                         {
                             Id = 2,
                             Name = "User"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Supplier"
                         });
                 });
 
@@ -458,19 +530,65 @@ namespace MyWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("BankAccount")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("BankName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<byte?>("Gender")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("IdentityNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("TaxCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -485,19 +603,23 @@ namespace MyWeb.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ducbkap94@gmail.com",
                             FullName = "Lương Đức",
                             PasswordHash = "$2a$11$SP9uoiu9At/n1f9dUSdguuIt6o.ScgEUhAIgmWkuqFKOQNKs3SVrq",
+                            Status = (byte)0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "abc@gmail.com",
                             FullName = "Lương Minh",
                             PasswordHash = "$2a$11$SP9uoiu9At/n1f9dUSdguuIt6o.ScgEUhAIgmWkuqFKOQNKs3SVrq",
+                            Status = (byte)0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Username = "admin1"
                         });
                 });
@@ -539,6 +661,17 @@ namespace MyWeb.Data.Migrations
                     b.Navigation("CashBook");
                 });
 
+            modelBuilder.Entity("MyWeb.Data.Models.Asset", b =>
+                {
+                    b.HasOne("MyWeb.Data.Models.Product", "Product")
+                        .WithMany("Assets")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("MyWeb.Data.Models.Booking", b =>
                 {
                     b.HasOne("MyWeb.Data.Models.Customer", "Customer")
@@ -552,21 +685,21 @@ namespace MyWeb.Data.Migrations
 
             modelBuilder.Entity("MyWeb.Data.Models.BookingDetail", b =>
                 {
+                    b.HasOne("MyWeb.Data.Models.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MyWeb.Data.Models.Booking", "Booking")
                         .WithMany("BookingDetails")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyWeb.Data.Models.Product", "Product")
-                        .WithMany("BookingDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Asset");
 
                     b.Navigation("Booking");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("MyWeb.Data.Models.CashBook", b =>
@@ -575,18 +708,14 @@ namespace MyWeb.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MaintenanceId");
 
-                    b.HasOne("MyWeb.Data.Models.Product", null)
-                        .WithMany("CashBooks")
-                        .HasForeignKey("ProductId");
-
                     b.Navigation("Maintenance");
                 });
 
             modelBuilder.Entity("MyWeb.Data.Models.Inventory", b =>
                 {
                     b.HasOne("MyWeb.Data.Models.Product", "Product")
-                        .WithOne("Inventory")
-                        .HasForeignKey("MyWeb.Data.Models.Inventory", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -596,7 +725,7 @@ namespace MyWeb.Data.Migrations
             modelBuilder.Entity("MyWeb.Data.Models.Maintenance", b =>
                 {
                     b.HasOne("MyWeb.Data.Models.Product", "Product")
-                        .WithMany("Maintenances")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -616,10 +745,6 @@ namespace MyWeb.Data.Migrations
                         .WithOne("Payment")
                         .HasForeignKey("MyWeb.Data.Models.Payment", "CashBookId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("MyWeb.Data.Models.Product", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("ProductId");
 
                     b.Navigation("Booking");
 
@@ -643,13 +768,17 @@ namespace MyWeb.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MyWeb.Data.Models.ProductImage", b =>
+            modelBuilder.Entity("MyWeb.Data.Models.RentalRate", b =>
                 {
+                    b.HasOne("MyWeb.Data.Models.Asset", "Asset")
+                        .WithMany("RentalRates")
+                        .HasForeignKey("AssetId");
+
                     b.HasOne("MyWeb.Data.Models.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("RentalRates")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Asset");
 
                     b.Navigation("Product");
                 });
@@ -671,6 +800,11 @@ namespace MyWeb.Data.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyWeb.Data.Models.Asset", b =>
+                {
+                    b.Navigation("RentalRates");
                 });
 
             modelBuilder.Entity("MyWeb.Data.Models.Booking", b =>
@@ -704,17 +838,9 @@ namespace MyWeb.Data.Migrations
 
             modelBuilder.Entity("MyWeb.Data.Models.Product", b =>
                 {
-                    b.Navigation("BookingDetails");
+                    b.Navigation("Assets");
 
-                    b.Navigation("CashBooks");
-
-                    b.Navigation("Inventory");
-
-                    b.Navigation("Maintenances");
-
-                    b.Navigation("Payments");
-
-                    b.Navigation("ProductImages");
+                    b.Navigation("RentalRates");
                 });
 
             modelBuilder.Entity("MyWeb.Data.Models.Role", b =>

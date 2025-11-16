@@ -1,0 +1,12 @@
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/bin/Debug/net9.0/MyWeb.Business.deps.json
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/bin/Debug/net9.0/MyWeb.Business.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/bin/Debug/net9.0/MyWeb.Business.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.AssemblyInfoInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.AssemblyInfo.cs
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.csproj.CoreCompileInputs.cache
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.sourcelink.json
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/refint/MyWeb.Business.dll
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/MyWeb.Business.pdb
+/Volumes/DATA2/NET/DUANCHOTHUE/MyWeb.Business/obj/Debug/net9.0/ref/MyWeb.Business.dll
